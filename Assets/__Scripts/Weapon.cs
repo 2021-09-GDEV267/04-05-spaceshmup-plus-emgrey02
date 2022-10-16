@@ -12,7 +12,7 @@ public enum WeaponType
     none, // The default / no weapons
     blaster, // A simple blaster
     spread, // Two shots simultaneously
-    phaser, // [NI] Shots that move in waves
+    phaser, // Shots that move in waves
     missile, // [NI] Homing missiles
     laser, // [NI] Damage over time
     shield // Raise shieldLevel
@@ -131,6 +131,11 @@ public class Weapon : MonoBehaviour {
                 p = MakeProjectile(); // Make left Projectile
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+                break;
+
+            case WeaponType.phaser:
+                p = MakeProjectile(); //make left projectile
+                p.rigid.velocity = vel;
                 break;
         }
     }
