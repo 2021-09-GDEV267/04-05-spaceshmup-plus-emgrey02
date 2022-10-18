@@ -86,13 +86,13 @@ public class Main : MonoBehaviour {
     public void DelayedRestart(float delay)
     {
         // Invoke the Restart() method in delay seconds
-        Invoke("Restart", delay);
+        Invoke("GameOver", delay);
     }
 
-    public void Restart()
+    public void GameOver()
     {
         // Reload _Scene_0 to restart the game
-        SceneManager.LoadScene("_Scene_0");
+        SceneManager.LoadScene("GameOver");
     }
     ///<summary>
     ///Static function that gets a WeaponDefinition from the WEAP_DICT static

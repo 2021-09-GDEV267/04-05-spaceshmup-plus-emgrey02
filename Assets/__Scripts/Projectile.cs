@@ -15,7 +15,6 @@ public class Projectile : MonoBehaviour {
 
     private float birthTime;
     private Vector3 birthPosition;
-    private Vector3 birthVelocity;
 
     // This public property masks the field _type and takes action when it is set
     public WeaponType type
@@ -40,7 +39,6 @@ public class Projectile : MonoBehaviour {
     {
         birthTime = Time.time;
         birthPosition = this.transform.position;
-        birthVelocity = rigid.velocity;
     }
 
     private void Update()

@@ -134,7 +134,7 @@ public class Weapon : MonoBehaviour {
                 break;
 
             case WeaponType.phaser:
-                p = MakeProjectile(); //make left projectile
+                p = MakeProjectile();
                 p.rigid.velocity = vel;
                 break;
         }
