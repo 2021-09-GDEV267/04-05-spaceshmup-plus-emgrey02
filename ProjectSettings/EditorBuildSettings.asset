@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Welcome_Screen.unity
     guid: 5d749f6ee05618d43866223a0df0ebb2
+  - enabled: 1
+    path: Assets/GameOver.unity
+    guid: fefc6251756d2434b9fd3ffb117dea89
   m_configObjects: {}
