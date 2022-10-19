@@ -1,7 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class Main : MonoBehaviour {
 
@@ -19,10 +21,14 @@ public class Main : MonoBehaviour {
         WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.phaser, WeaponType.laser,
     };
 
+    public static event Action<Enemy> enemyDestroyed;
+
     private BoundsCheck bndCheck;
 
     public void ShipDestroyed( Enemy e)
     {
+        enemyDestroyed?.Invoke(e);
+
         // Potentially generate a PowerUp
         if (Random.value <= e.powerUpDropChance)
         {
