@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,13 +6,14 @@ using UnityEngine.UI;
 
 public class ScoreDisplay : MonoBehaviour
 {
-    private Text text;
+    private Text scoreText;
     private int score;
+    public static event Action<int> scoreUpdated;
 
     private void Awake()
     {
         score = 0;
-        text = GetComponent<Text>();
+        scoreText = GetComponent<Text>();
         Main.enemyDestroyed += UpdateScore;
         UpdateText();
     }
@@ -40,6 +42,7 @@ public class ScoreDisplay : MonoBehaviour
 
     private void UpdateText()
     {
-        text.text = "Score: " + score;
+        scoreText.text = "Score: " + score;
+        scoreUpdated?.Invoke(score);
     }
 }

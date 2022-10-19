@@ -9,4 +9,9 @@ public class SceneChange : MonoBehaviour
     {
         SceneManager.LoadScene("_Scene_0");
     }
+
+    public void OpenTitleScreen()
+    {
+        SceneManager.LoadScene("Welcome_Screen");
+    }
 }

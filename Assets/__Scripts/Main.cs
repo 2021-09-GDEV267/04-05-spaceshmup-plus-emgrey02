@@ -21,6 +21,7 @@ public class Main : MonoBehaviour {
         WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.phaser, WeaponType.laser,
     };
 
+    //https://onewheelstudio.com/blog/2020/7/24/observer-pattern-c-events
     public static event Action<Enemy> enemyDestroyed;
 
     private BoundsCheck bndCheck;
