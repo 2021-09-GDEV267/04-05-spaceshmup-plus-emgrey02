@@ -10,6 +10,7 @@ public class Projectile : MonoBehaviour {
 
     [Header("Set Dynamically")]
     public Rigidbody rigid;
+
     [SerializeField]
     private WeaponType _type;
 
@@ -53,7 +54,7 @@ public class Projectile : MonoBehaviour {
             float age = Time.time - birthTime;
             float theta = Mathf.PI * 2 * age / .6f;
             float sin = Mathf.Sin(theta);
-            tempPos.x = birthPosition.x + 2 * sin;
+            tempPos.x = birthPosition.x + 3 * sin;
             this.transform.position = tempPos;
         }
     }

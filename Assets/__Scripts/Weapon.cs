@@ -125,15 +125,27 @@ public class Weapon : MonoBehaviour {
             case WeaponType.spread:
                 p = MakeProjectile(); // Make middle Projectile
                 p.rigid.velocity = vel;
+
                 p = MakeProjectile(); // Make right Projectile
                 p.transform.rotation = Quaternion.AngleAxis(10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
+
                 p = MakeProjectile(); // Make left Projectile
                 p.transform.rotation = Quaternion.AngleAxis(-10, Vector3.back);
                 p.rigid.velocity = p.transform.rotation * vel;
                 break;
 
             case WeaponType.phaser:
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
+
+                p = MakeProjectile();
+                p.rigid.velocity = vel;
+
+                // sin wave mvmt in Projectile class Update method
+                break;
+
+            case WeaponType.laser:
                 p = MakeProjectile();
                 p.rigid.velocity = vel;
                 break;

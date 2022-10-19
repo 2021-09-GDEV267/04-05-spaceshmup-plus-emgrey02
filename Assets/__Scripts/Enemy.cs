@@ -19,6 +19,8 @@ public class Enemy : MonoBehaviour {
     public float damageDoneTime; // Time to stop showing damage
     public bool notifiedOfDestruction = false; // Will be used later
 
+    protected Projectile proj; //projectile that collides w enemy
+
     protected BoundsCheck bndCheck;
 
     private void Awake()
@@ -75,7 +77,7 @@ public class Enemy : MonoBehaviour {
         switch (otherGO.tag)
         {
             case "ProjectileHero":
-                Projectile p = otherGO.GetComponent<Projectile>();
+                proj = otherGO.GetComponent<Projectile>();
                 // If this Enemy is off screen, don't damage it.
                 if (!bndCheck.isOnScreen)
                 {
@@ -83,27 +85,42 @@ public class Enemy : MonoBehaviour {
                     break;
                 }
 
-                // Hurt this Enemy
-                ShowDamage();
-                // Get the damage amount from the Main WEAP_DICT
-                health -= Main.GetWeaponDefinition(p.type).damageOnHit;
-                if(health <= 0)
+                HurtEnemy();
+
+                // see if weapon does continuous damage to enemy
+                float cont = Main.GetWeaponDefinition(proj.type).continuousDamage;
+                // do damage every second if so
+                if (cont > 0)
                 {
-                    // Tell the Main singleton that this ship was destroyed
-                    if (!notifiedOfDestruction)
-                    {
-                        Main.S.ShipDestroyed(this);
-                    }
-                    notifiedOfDestruction = true;
-                    // Destroy this enemy
-                    Destroy(this.gameObject);
+                    InvokeRepeating("HurtEnemy", 0f, 1f);
                 }
+
                 Destroy(otherGO);
                 break;
 
             default:
                 print("Enemy hit by non-ProjectileHero: " + otherGO.name);
                 break;
+        }
+    }
+
+    void HurtEnemy()
+    {
+        // Hurt this Enemy
+        ShowDamage();
+        // Get the damage amount from the Main WEAP_DICT
+        health -= Main.GetWeaponDefinition(proj.type).damageOnHit;
+
+        if (health <= 0)
+        {
+            // Tell the Main singleton that this ship was destroyed
+            if (!notifiedOfDestruction)
+            {
+                Main.S.ShipDestroyed(this);
+            }
+            notifiedOfDestruction = true;
+            // Destroy this enemy
+            Destroy(this.gameObject);
         }
     }
 
