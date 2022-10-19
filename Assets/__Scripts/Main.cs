@@ -12,10 +12,11 @@ public class Main : MonoBehaviour {
 
     [Header("Set in Inspector")]
     public GameObject[] prefabEnemies; // Array of Enemy prefabs
-    public float enemySpawnPerSecond = 0.5f; // # Enemies/second
+    public float[] enemySpawnPerSecond = { 0.2f, 0.5f, 0.7f }; // # Enemies/second
     public float enemyDefaultPadding = 1.5f; // Padding for position
     public WeaponDefinition[] weaponDefinitions;
     public GameObject prefabPowerUp;
+    public static int diffLevel;
     public WeaponType[] powerUpFrequency = new WeaponType[]
     {
         WeaponType.blaster, WeaponType.blaster, WeaponType.spread, WeaponType.shield, WeaponType.phaser, WeaponType.laser,
@@ -53,10 +54,8 @@ public class Main : MonoBehaviour {
         S = this;
         // Set bndCheck to reference the BoundsCheck component on this GameObject
         bndCheck = GetComponent<BoundsCheck>();
-
         // Invoke SpawnEnemy() once (in 2 seconds, based on default values)
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
-
+        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond[diffLevel]);
         // A generic Dictionary with WeaponType as the key
         WEAP_DICT = new Dictionary<WeaponType, WeaponDefinition>();
         foreach(WeaponDefinition def in weaponDefinitions)
@@ -87,7 +86,7 @@ public class Main : MonoBehaviour {
         go.transform.position = pos;
 
         // Invoke SpawnEnemy() again
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond[diffLevel]);
     }
 
     public void DelayedRestart(float delay)
